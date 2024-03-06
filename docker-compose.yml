@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  app:
+    container_name: golang-app
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"  # Map port 8080 of the host to port 8080 of the container
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_USER=root
+      - DB_PASSWORD=kwanpeemai0101
+      - DB_NAME=YogurtShop
+
+  db:
+    container_name: mysql-db
+    image: mysql:latest
+    ports:
+      - "3306:3306"  # Map port 3306 of the host to port 3306 of the container
+    environment:
+      - MYSQL_ROOT_PASSWORD=kwanpeemai0101
+      - MYSQL_DATABASE=YogurtShop
